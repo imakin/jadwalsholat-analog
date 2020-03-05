@@ -76,9 +76,10 @@ $pie-diameter: $clock-diameter*0.8;
         width: $pie-diameter / 2;
         position: absolute;
         content: '';
-        background-color: rgb(230,230,230);
+        background-color: rgb(250,250,250);
+        transition: transform 2s, background-color 60s;
         transform-origin: 100% 100%;
-        transform: rotate(140deg) skew($cover-frac * 360deg);
+        transform: rotate(0deg) skew(90deg - ($cover-frac * 360deg));
     }
 
 }
