@@ -10,7 +10,9 @@ all: $(SCSSES)
 %.css: %.scss
 	#compile scss'
 	$(COMPILER)  $< > $@
+	cp  $@ android-cordova/SholatAnalog/www/css/
 
 %.css: %.sass
 	#compile sass'
 	$(COMPILER)  $< > $@
+	cp  $@ android-cordova/SholatAnalog/www/css/

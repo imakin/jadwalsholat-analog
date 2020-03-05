@@ -5,13 +5,20 @@ $finger-seconds-scale: 0.9;
 $finger-minutes-scale: 0.7;
 $finger-hours-scale: 0.6;
 
+body {
+    background-color:black;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
 .container-square303 {
     display: block;
     width: $clock-diameter;
     height: $clock-diameter;
+    margin: 0 auto;
 }
 #wallclockbg {
-    background-image: url('wallclock.plain.0.svg');
+    background-image: url('../img/wallclock.plain.0.svg');
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: $clock-diameter $clock-diameter;

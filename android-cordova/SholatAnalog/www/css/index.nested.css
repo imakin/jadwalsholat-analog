@@ -1,0 +1,63 @@
+.container-square303 {
+  display: block;
+  width: 300px;
+  height: 300px; }
+
+#wallclockbg {
+  background-image: url("../img/wallclock.plain.0.svg");
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 300px 300px;
+  position: relative; }
+
+.wallfinger {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 149px;
+  height: 300px;
+  width: 2px;
+  font-size: 0; }
+  .wallfinger .finger {
+    display: block;
+    height: 50%;
+    width: 2px;
+    background-color: #641e14; }
+  .wallfinger .transparent {
+    display: block;
+    height: 50%;
+    width: 2px;
+    background-color: transparent; }
+  .wallfinger#seconds {
+    top: 16px;
+    height: 270px; }
+    .wallfinger#seconds .finger {
+      background-color: #c81e14; }
+  .wallfinger#minutes {
+    top: 46px;
+    height: 210px; }
+    .wallfinger#minutes .finger {
+      background-color: #c85046; }
+  .wallfinger#hours {
+    top: 61px;
+    height: 180px; }
+    .wallfinger#hours .finger {
+      background-color: #c88278; }
+
+.pie {
+  width: 240px;
+  height: 240px;
+  top: 30px;
+  left: 30px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%; }
+  .pie .pie-inner {
+    height: 120px;
+    width: 120px;
+    position: absolute;
+    content: '';
+    background-color: #fafafa;
+    transition: transform 2s, background-color 60s;
+    transform-origin: 100% 100%;
+    transform: rotate(0deg) skew(30deg); }
