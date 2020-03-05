@@ -9,7 +9,9 @@ function elems(selector) {
 
 var verbose = false;
 var alarm_iqomah_time = 10;
-var alarm_warn_th = 30 + alarm_iqomah_time;
+var alarm_warn_th = 60 + alarm_iqomah_time;
+var jadwal_adjust = -14//jadwal is in Jakarta time, adjust here
+
 
 const months = ["januari","februari","maret","april","mei",
 "juni","juli","agustus","september","oktober","november","desember"]
@@ -17,7 +19,7 @@ function jadwalstr_to_minutes(str) {
     var times = str.split(':')
     var h = parseInt(times[0],10);
     var m = parseInt(times[1],10);
-    return h*60+m;
+    return h*60+m+jadwal_adjust;
 }
 //today
 function get_jadwal_sholat(date) {
@@ -31,8 +33,9 @@ function get_closest_jadwal(date) {
     var current_time_in_minutes = date.getHours()*60+date.getMinutes()
     for (key in jadwals) {
         var v = jadwals[key];
-        var v_in_minutes = jadwalstr_to_minutes(v) + alarm_iqomah_time;
+        var v_in_minutes = jadwalstr_to_minutes(v);// + alarm_iqomah_time;
         if (verbose) {
+            console.log(key)
             console.log('v_in_minutes '+v_in_minutes)
             console.log('current_time_in_minutes '+current_time_in_minutes)
             console.log('(v_in_minutes - current_time_in_minutes) < alarm_warn_th '+
@@ -41,7 +44,7 @@ function get_closest_jadwal(date) {
         }
         if (current_time_in_minutes < v_in_minutes) {
             if ((v_in_minutes - current_time_in_minutes) < alarm_warn_th) {
-                return v;
+                return [v,key];
             }
         }
     }
@@ -105,15 +108,20 @@ function step(d){
     var alarm_pie = elem('#pie-jadwalsholat');
     var alarm_pie_inner = elem('#pie-jadwalsholat .pie-inner');
     var closest_jadwal = get_closest_jadwal(d);
-    if (closest_jadwal) {
-        var min = parseInt(closest_jadwal.split(':')[1], 10)
+    if (closest_jadwal[0]) {
+        var min = parseInt(closest_jadwal[0].split(':')[1], 10)+ jadwal_adjust
+        if (min<0) min = 60+min;
         var minute_deg = 360*min/60;
         alarm_pie_set(minute_deg, (360*alarm_iqomah_time/60))
 
         alarm_pie_inner.style.backgroundColor = "rgb(230,230,30)"
+        if (alarm_pie_inner.innerText!=closest_jadwal[1]) {
+            alarm_pie_inner.innerHTML = "<span>"+closest_jadwal[1]+"</span>";
+        }
     }
     else {
         alarm_pie_inner.style.backgroundColor = "rgb(250,250,250)"
+        alarm_pie_inner.innerHTML = "";
     }
 }
 
