@@ -1,0 +1,84 @@
+$clock-diameter: 300px;
+$clock-radius: $clock-diameter / 2;
+$finger-width: 2px;
+$finger-seconds-scale: 0.9;
+$finger-minutes-scale: 0.7;
+$finger-hours-scale: 0.6;
+
+.container-square303 {
+    display: block;
+    width: $clock-diameter;
+    height: $clock-diameter;
+}
+#wallclockbg {
+    background-image: url('wallclock.plain.0.svg');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: $clock-diameter $clock-diameter;
+    position: relative;
+}
+@mixin finger-scale($scale) {
+    top: ($finger-width / 2) + ($clock-diameter * (1 - $scale) / 2);
+    height: $clock-diameter * $scale;
+}
+.wallfinger {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: $clock-radius - ($finger-width / 2);
+    height: $clock-diameter;
+    width: $finger-width;
+    font-size: 0;
+    .finger {
+        display: block;
+        height: 50%;
+        width: $finger-width;
+        background-color: rgb(100,30,20);
+    }
+    .transparent {
+        display: block;
+        height: 50%;
+        width: $finger-width;
+        background-color: transparent;
+    }
+    &#seconds {
+        @include finger-scale($finger-seconds-scale);
+        .finger {
+            background-color: rgb(200,30,20);
+        }
+    }
+    &#minutes {
+        @include finger-scale($finger-minutes-scale);
+        .finger {
+            background-color: rgb(200,80,70);
+        }
+    }
+    &#hours {
+        @include finger-scale($finger-hours-scale);
+        .finger {
+            background-color: rgb(200,130,120);
+        }
+    }
+}
+
+$cover-frac: 10/60;//10 minutes length
+$pie-diameter: $clock-diameter*0.8;
+.pie {
+    width: $pie-diameter;
+    height: $pie-diameter;
+    top: ($clock-diameter - $pie-diameter) / 2;
+    left: ($clock-diameter - $pie-diameter) / 2;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    .pie-inner{
+        height: $pie-diameter / 2;
+        width: $pie-diameter / 2;
+        position: absolute;
+        content: '';
+        background-color: rgb(230,230,230);
+        transform-origin: 100% 100%;
+        transform: rotate(140deg) skew($cover-frac * 360deg);
+    }
+
+}
